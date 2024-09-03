@@ -112,7 +112,7 @@ namespace Calculator.ViewModels
             }
             catch(Exception ex)
             {
-                Log.Error($"Exception thrown in {nameof(CalculateSum)}");
+                Log.Error($"Exception thrown in {nameof(CalculateSum)}",ex);
             }           
             
         }
