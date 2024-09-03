@@ -81,8 +81,8 @@ namespace Calculator.ViewModels
                 Log.Information($"New sum started, num1 = {Num1}, num2 = {Sum}, action = {Action}");
                 if (!string.IsNullOrEmpty(Sum) && !string.IsNullOrEmpty(Num1))
                 {
-                    var firstNumber = Convert.ToDecimal(Num1);
-                    var secondNumber = Convert.ToDecimal(Sum);
+                    var firstNumber = Convert.ToDouble(Num1);
+                    var secondNumber = Convert.ToDouble(Sum);
 
                     switch (action)
                     {
@@ -93,7 +93,15 @@ namespace Calculator.ViewModels
                             Sum = (firstNumber - secondNumber).ToString();
                             break;
                         case "/":
-                            Sum = (firstNumber / secondNumber).ToString();
+                            if (secondNumber == 0)
+                            {
+                                Log.Warning("Attempted to divide by zero");
+                                Sum = "Cannot divide by zero";
+                            }
+                            else
+                            {
+                                Sum = (firstNumber / secondNumber).ToString();
+                            }
                             break;
                         case "*":
                             Sum = (firstNumber * secondNumber).ToString();
@@ -110,6 +118,7 @@ namespace Calculator.ViewModels
             catch(Exception ex)
             {
                 Log.Error($"Exception thrown in {nameof(CalculateSum)}",ex);
+                Sum = "Error";
             }           
             
         }
@@ -123,13 +132,21 @@ namespace Calculator.ViewModels
             try
             {
                 Log.Information($"Adding new number {parameter}");
+                if (parameter.ToString() == "." && Sum.Contains("."))
+                {
+                    return; // Prevent multiple decimal points
+                }
                 if (string.IsNullOrEmpty(Sum))
                 {
                     Sum = parameter.ToString();
-                }
+                }                
                 else
                 {
-                    Sum += parameter.ToString();
+                    if(Sum.Length < 20)
+                    {
+                        Sum += parameter.ToString();
+                    }
+                    
                 }
             }
             catch(Exception ex)
@@ -148,7 +165,11 @@ namespace Calculator.ViewModels
             try
             {
                 Log.Information($"New mathmatic action selected {parameter}");
-                Num1 = Sum;
+                if (string.IsNullOrEmpty(Num1))
+                {
+                    Num1 = Sum;
+                }
+                
                 Sum = string.Empty;
                 Action = parameter.ToString();
             }

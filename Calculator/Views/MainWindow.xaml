@@ -27,7 +27,7 @@
             <RowDefinition Height=".2*"/>            
         </Grid.RowDefinitions>
         <Border BorderBrush="Black" BorderThickness="5"  Grid.Column="0" Grid.ColumnSpan="5" Background="Gray">
-            <TextBlock Text="{Binding Sum}" FontSize="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" />
+            <TextBox IsReadOnly="True" Text="{Binding Sum}" FontSize="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" MaxLength="15" />
         </Border>
         <Grid Grid.Column="0"  Grid.Row="1" Width="Auto" Grid.ColumnSpan="3" HorizontalAlignment="Stretch">
             <Grid.ColumnDefinitions>
