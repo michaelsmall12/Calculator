@@ -97,10 +97,7 @@ namespace Calculator.ViewModels
                             break;
                         case "*":
                             Sum = (firstNumber * secondNumber).ToString();
-                            break;
-                        case "%":
-                            Sum = ((firstNumber / secondNumber) * 100).ToString();
-                            break;
+                            break;                     
                         default:
                             break;
 
