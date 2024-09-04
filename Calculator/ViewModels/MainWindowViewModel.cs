@@ -84,7 +84,7 @@ namespace Calculator.ViewModels
                     var firstNumber = Convert.ToDouble(Num1);
                     var secondNumber = Convert.ToDouble(Sum);
 
-                    switch (action)
+                    switch (Action)
                     {
                         case "+":
                             Sum = (firstNumber + secondNumber).ToString();
@@ -136,18 +136,10 @@ namespace Calculator.ViewModels
                 {
                     return; // Prevent multiple decimal points
                 }
-                if (string.IsNullOrEmpty(Sum))
+                if (!string.IsNullOrEmpty(Sum) && Sum.Length < 20)
                 {
-                    Sum = parameter.ToString();
-                }                
-                else
-                {
-                    if(Sum.Length < 20)
-                    {
-                        Sum += parameter.ToString();
-                    }
-                    
-                }
+                    Sum += parameter.ToString();
+                }                           
             }
             catch(Exception ex)
             {
